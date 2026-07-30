@@ -73,6 +73,12 @@ lazy_static::lazy_static! {
         _ => "",
     }.to_owned());
 
+    // 修改默认的API_SERVER为自己的
+    pub static ref PROD_API_SERVER: RwLock<String> = RwLock::new(match option_env!("API_SERVER") {
+        Some(server) if !server.is_empty() => server,
+        _ => "",
+    }.to_owned());
+
     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
     pub static ref APP_NAME: RwLock<String> = RwLock::new("RustDesk".to_owned());
     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
